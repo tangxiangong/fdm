@@ -1,0 +1,36 @@
+[package]
+name = "fdm"
+version = "0.1.0"
+edition = "2024"
+authors = ["tangxiangong <tangxiangong@gmail.com>"]
+description = "Finite element methods for partial differential equations."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/tangxiangong/fdm"
+readme = "README.md"
+
+[lib]
+doctest = false
+
+[dependencies]
+nalgebra = "0.33"
+nalgebra-sparse = "0.10"
+
+[features]
+intel-mkl = ["dep:nalgebra-lapack-mkl"]
+default = []
+
+# Use accelerate for aarch64 on macOS (Apple Silicon)
+[target.'cfg(all(target_arch = "aarch64", target_os = "macos"))'.dependencies]
+nalgebra-lapack = { version = "0.25", default-features = false, features = ["accelerate"], package = "nalgebra-lapack" }
+
+# Use openblas for other architectures
+[target.'cfg(not(all(target_arch = "aarch64", target_os = "macos")))'.dependencies]
+nalgebra-lapack = { version = "0.25", default-features = false, features = ["openblas"], package = "nalgebra-lapack" }
+
+# Use Intel MKL for x86 and x86_64 architectures when intel-mkl feature is enabled
+[dependencies.nalgebra-lapack-mkl]
+version = "0.25"
+default-features = false
+features = ["intel-mkl"]
+package = "nalgebra-lapack"
+optional = true
