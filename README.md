@@ -1,1 +1,1 @@
-# Finite Element Method in Rust
+# Finite Difference Method in Rust
