@@ -1,5 +1,8 @@
 fn main() {
-    unsafe { std::env::set_var("CMAKE_POLICY_VERSION_MINIMUM", "3.6"); }
+    // For cmake v4, we need to set the `CMAKE_POLICY_VERSION_MINIMUM` to greater than 3.5.
+    unsafe {
+        std::env::set_var("CMAKE_POLICY_VERSION_MINIMUM", "3.6");
+    }
     // Check if intel-mkl feature is enabled
     if cfg!(feature = "intel-mkl") {
         // Check if current architecture is x86 or x86_64
@@ -7,9 +10,7 @@ fn main() {
 
         // If current architecture is not Intel but intel-mkl feature is enabled, emit a compile error
         if !is_intel_arch {
-            panic!(
-                "intel-mkl feature can only be used on x86 or x86_64 architectures"
-            );
+            panic!("intel-mkl feature can only be used on x86 or x86_64 architectures");
         }
     }
 }
