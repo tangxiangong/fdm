@@ -3,7 +3,7 @@ name = "fdm"
 version = "0.1.0"
 edition = "2024"
 authors = ["tangxiangong <tangxiangong@gmail.com>"]
-description = "Finite element methods for partial differential equations."
+description = "Finite difference methods for partial differential equations."
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/tangxiangong/fdm"
 readme = "README.md"
@@ -14,6 +14,7 @@ doctest = false
 [dependencies]
 nalgebra = "0.33"
 nalgebra-sparse = "0.10"
+thiserror = "2"
 
 [features]
 intel-mkl = ["dep:nalgebra-lapack-mkl"]
